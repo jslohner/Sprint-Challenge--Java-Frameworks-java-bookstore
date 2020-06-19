@@ -25,9 +25,8 @@ public class Section extends Auditable {
 	public Section() {
 	}
 
-	public Section(@NotNull String sectionname, List<Book> books) {
+	public Section(@NotNull String sectionname) {
 		this.sectionname = sectionname;
-		this.books = books;
 	}
 
 	public long getSectionid() {

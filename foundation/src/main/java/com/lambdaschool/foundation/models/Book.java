@@ -31,17 +31,16 @@ public class Book extends Auditable {
 
 	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties(value = "book", allowSetters = true)
-	private List<AuthorBooks> authors = new ArrayList<>();
+	private List<Wrote> wrotes = new ArrayList<>();
 
 	public Book() {
 	}
 
-	public Book(@NotNull String booktitle, @NotNull String ISBN, int copy, Section section, List<AuthorBooks> authors) {
+	public Book(@NotNull String booktitle, @NotNull String ISBN, int copy, Section section) {
 		this.booktitle = booktitle;
 		this.ISBN = ISBN;
 		this.copy = copy;
 		this.section = section;
-		this.authors = authors;
 	}
 
 	public long getBookid() {
@@ -84,12 +83,12 @@ public class Book extends Auditable {
 		this.section = section;
 	}
 
-	public List<AuthorBooks> getAuthors() {
-		return authors;
+	public List<Wrote> getWrotes() {
+		return wrotes;
 	}
 
-	public void setAuthors(List<AuthorBooks> authors) {
-		this.authors = authors;
+	public void setWrotes(List<Wrote> wrotes) {
+		this.wrotes = wrotes;
 	}
 
 	@Override
@@ -100,7 +99,7 @@ public class Book extends Auditable {
 			", ISBN='" + ISBN + '\'' +
 			", copy=" + copy +
 			", section=" + section +
-			", authors=" + authors +
+			", wrotes=" + wrotes +
 			'}';
 	}
 }

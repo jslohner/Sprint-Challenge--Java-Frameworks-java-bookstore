@@ -18,15 +18,18 @@ public class Author extends Auditable {
 
 	@OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties(value = "author", allowSetters = true)
-	private List<AuthorBooks> books = new ArrayList<>();
+	private List<Wrote> wrotes = new ArrayList<>();
 
 	public Author() {
 	}
 
-	public Author(String firstname, String lastname, List<AuthorBooks> books) {
+	public Author(String firstname, String lastname) {
 		this.firstname = firstname;
 		this.lastname = lastname;
-		this.books = books;
+		// for (Wrote w : wrotes) {
+		// 	w.setAuthor(this);
+		// }
+		// this.wrotes = wrotes;
 	}
 
 	public long getAuthorid() {
@@ -53,12 +56,16 @@ public class Author extends Auditable {
 		this.lastname = lastname;
 	}
 
-	public List<AuthorBooks> getBooks() {
-		return books;
+	public List<Wrote> getWrotes() {
+		return wrotes;
 	}
 
-	public void setBooks(List<AuthorBooks> books) {
-		this.books = books;
+	public void setWrotes(List<Wrote> wrotes) {
+		this.wrotes = wrotes;
+	}
+
+	public void addBook(Book book) {
+		wrotes.add(new Wrote(this, book));
 	}
 
 	@Override
@@ -67,7 +74,7 @@ public class Author extends Auditable {
 			"authorid=" + authorid +
 			", firstname='" + firstname + '\'' +
 			", lastname='" + lastname + '\'' +
-			", books=" + books +
+			", wrotes=" + wrotes +
 			'}';
 	}
 }

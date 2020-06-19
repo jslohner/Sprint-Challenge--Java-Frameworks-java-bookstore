@@ -7,8 +7,8 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "authorbooks", uniqueConstraints = {@UniqueConstraint(columnNames = {"authorid", "bookid"})})
-public class AuthorBooks extends Auditable implements Serializable {
+@Table(name = "wrotes", uniqueConstraints = {@UniqueConstraint(columnNames = {"authorid", "bookid"})})
+public class Wrote extends Auditable implements Serializable {
 	@Id
 	@ManyToOne
 	@JoinColumn(name = "authorid")
@@ -23,10 +23,10 @@ public class AuthorBooks extends Auditable implements Serializable {
 		allowSetters = true)
 	private Book book;
 
-	public AuthorBooks() {
+	public Wrote() {
 	}
 
-	public AuthorBooks(Author author, Book book) {
+	public Wrote(Author author, Book book) {
 		this.author = author;
 		this.book = book;
 	}
@@ -51,7 +51,7 @@ public class AuthorBooks extends Auditable implements Serializable {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
-		AuthorBooks that = (AuthorBooks) o;
+		Wrote that = (Wrote) o;
 		return author.equals(that.author) &&
 				   book.equals(that.book);
 	}
