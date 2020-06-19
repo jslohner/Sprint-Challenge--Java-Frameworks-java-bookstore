@@ -18,6 +18,16 @@ public class BookServiceImpl implements BookService {
 	private BookRepository bookrepos;
 
 	@Override
+	public List<Book> findAllBooks() {
+		List<Book> bookList = new ArrayList<>();
+
+		bookrepos.findAll()
+			.iterator()
+			.forEachRemaining(bookList::add);
+		return bookList;
+	}
+
+	@Override
 	public Book findBookById(long id) {
 		return bookrepos
 			.findById(id)
@@ -55,5 +65,13 @@ public class BookServiceImpl implements BookService {
 		newBook.setWrotes(newWrotes);
 
 		return bookrepos.save(newBook);
+	}
+
+	@Override
+	public void delete(long id) {
+		bookrepos
+			.findById(id)
+			.orElseThrow(() -> new ResourceNotFoundException("Book " + id + " Not Found"));
+		bookrepos.deleteById(id);
 	}
 }
