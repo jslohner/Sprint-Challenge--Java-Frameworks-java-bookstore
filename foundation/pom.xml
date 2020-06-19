@@ -112,7 +112,7 @@
     </dependencies>
 
     <build>
-        <finalName>jrmmba-foundation</finalName>
+        <finalName>jslohner-book</finalName>
 
         <plugins>
             <plugin>
