@@ -38,15 +38,12 @@ public class AuthorServiceImpl implements AuthorService {
 		newAuthor.setFirstname(author.getFirstname());
 		newAuthor.setLastname(author.getLastname());
 
+		List<Wrote> newWrotes = new ArrayList<>();
 		newAuthor.getWrotes().clear();
 		for (Wrote w : author.getWrotes()) {
-			// Book newBook = bookService.findBookById(w.getBook().getBookid());
-			Book newBook = new Book();
-			newBook.setBookid(w.getBook().getBookid());
-			// newBook.setWrotes(w);
-
-			newAuthor.addBook(newBook);
+			newWrotes.add(new Wrote(newAuthor, w.getBook()));
 		}
+		newAuthor.setWrotes(newWrotes);
 
 		return authorrepos.save(newAuthor);
 	}

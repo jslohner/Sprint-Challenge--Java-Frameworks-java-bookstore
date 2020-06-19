@@ -3,7 +3,6 @@ package com.lambdaschool.foundation.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,11 +13,9 @@ public class Book extends Auditable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long bookid;
 
-	@NotNull
 	@Column(nullable = false)
 	private String booktitle;
 
-	@NotNull
 	@Column(nullable = false, unique = true)
 	private String ISBN;
 
@@ -36,7 +33,7 @@ public class Book extends Auditable {
 	public Book() {
 	}
 
-	public Book(@NotNull String booktitle, @NotNull String ISBN, int copy, Section section) {
+	public Book(String booktitle, String ISBN, int copy, Section section) {
 		this.booktitle = booktitle;
 		this.ISBN = ISBN;
 		this.copy = copy;

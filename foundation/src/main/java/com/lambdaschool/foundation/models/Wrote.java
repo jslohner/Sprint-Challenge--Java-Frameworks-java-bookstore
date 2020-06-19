@@ -12,14 +12,14 @@ public class Wrote extends Auditable implements Serializable {
 	@Id
 	@ManyToOne
 	@JoinColumn(name = "authorid")
-	@JsonIgnoreProperties(value = "books",
+	@JsonIgnoreProperties(value = "wrotes",
 		allowSetters = true)
 	private Author author;
 
 	@Id
 	@ManyToOne
 	@JoinColumn(name = "bookid")
-	@JsonIgnoreProperties(value = "authors",
+	@JsonIgnoreProperties(value = "wrotes",
 		allowSetters = true)
 	private Book book;
 
@@ -51,9 +51,9 @@ public class Wrote extends Auditable implements Serializable {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
-		Wrote that = (Wrote) o;
-		return author.equals(that.author) &&
-				   book.equals(that.book);
+		Wrote wrote = (Wrote) o;
+		return author.equals(wrote.author) &&
+				   book.equals(wrote.book);
 	}
 
 	@Override

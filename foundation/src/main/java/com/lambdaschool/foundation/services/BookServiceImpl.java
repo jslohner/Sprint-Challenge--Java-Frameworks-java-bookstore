@@ -1,15 +1,15 @@
 package com.lambdaschool.foundation.services;
 
-import com.lambdaschool.foundation.exceptions.ResourceFoundException;
 import com.lambdaschool.foundation.exceptions.ResourceNotFoundException;
 import com.lambdaschool.foundation.models.Book;
-import com.lambdaschool.foundation.models.User;
-import com.lambdaschool.foundation.models.UserRoles;
 import com.lambdaschool.foundation.models.Wrote;
 import com.lambdaschool.foundation.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Transactional
 @Service(value = "bookService")
@@ -29,27 +29,30 @@ public class BookServiceImpl implements BookService {
 	public Book save(Book book) {
 		Book newBook = new Book();
 
-		if (book.getBookid() != 0) {
-			Book oldBook = bookrepos
-				.findById(book.getBookid())
-				.orElseThrow(() -> new ResourceNotFoundException("Book id " + book.getBookid() + " not found!"));
+		// if (book.getBookid() != 0) {
+		// 	Book oldBook = bookrepos
+		// 		.findById(book.getBookid())
+		// 		.orElseThrow(() -> new ResourceNotFoundException("Book id " + book.getBookid() + " not found!"));
+		//
+		// 	// for (Wrote w : oldBook.getWrotes()) {
+		// 	// 	bookrepos.d(w.getAuthor().getAuthorid(), w.getBook().getBookid());
+		// 	// }
+		//
+		// 	newBook.setBookid(book.getBookid());
+		// }
 
-			// for (Wrote w : oldBook.getWrotes()) {
-			// 	bookrepos.d(w.getAuthor().getAuthorid(), w.getBook().getBookid());
-			// }
-
-			newBook.setBookid(book.getBookid());
-		}
-
+		// newBook.setBookid(book.getBookid());
 		newBook.setBooktitle(book.getBooktitle());
 		newBook.setISBN(book.getISBN());
 		newBook.setCopy(book.getCopy());
 		newBook.setSection(book.getSection());
-		// newBook.setWrotes(book.getWrotes());
+
+		List<Wrote> newWrotes = new ArrayList<>();
 		newBook.getWrotes().clear();
 		for (Wrote w : book.getWrotes()) {
-			newBook.
+			newWrotes.add(new Wrote(w.getAuthor(), newBook));
 		}
+		newBook.setWrotes(newWrotes);
 
 		return bookrepos.save(newBook);
 	}
